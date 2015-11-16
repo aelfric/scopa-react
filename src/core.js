@@ -29,7 +29,7 @@ export function newDeck(){
     return List(deck);
 }
 
-export function deal(state, numPlayers){
+export function dealPlayers(state, numPlayers){
     var deck = state.get('deck');
     var players = [];
 
@@ -45,8 +45,15 @@ export function deal(state, numPlayers){
 
     return state.merge({
         players: fromJS(players),
-        table: deck.skip(6).take(4),
-        deck: deck.skip(10)
+        deck: deck.skip(numPlayers * 3)
+    });
+};
+
+export function dealTable(state){
+    var deck = state.get('deck');
+    return state.merge({
+        table: deck.take(4),
+        deck: deck.skip(4)
     });
 };
 

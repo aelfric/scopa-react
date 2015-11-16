@@ -1,7 +1,7 @@
 import {List, Map} from 'immutable';
 import {expect} from 'chai';
 
-import {shuffle, newDeck, deal, discard, capture} from '../src/core';
+import {shuffle, newDeck, dealPlayers, dealTable, discard, capture} from '../src/core';
 
 describe('application logic', () => {
     describe('suffle', () => {
@@ -13,23 +13,35 @@ describe('application logic', () => {
     });
 
     describe('deal', () => {
-        it('creats two player hands of three cards each', () => {
+        it('creates two player hands of three cards each', () => {
             const state = Map({
                 deck: List.of('a', 'b', 'c', 'd', 'e', 'f', 'g',
                               'h', 'i', 'j', 'k')
             });
 
-            const nextState = deal(state, 2);
+            const nextState = dealPlayers(state, 2);
             expect(nextState.getIn(['players', 0, 'hand']).size).to.equal(3);
             expect(nextState.getIn(['players',0,'hand']).size).to.equal(3);
-            expect(nextState.get('table').size).to.equal(4);
-            expect(nextState.get('deck').size).to.equal(1);
+            expect(nextState.get('deck').size).to.equal(5);
             expect(nextState).to.equal(Map({
                 players: List.of(
                     Map({hand: List.of('a', 'c', 'e')}),
                     Map({hand: List.of('b', 'd', 'f')})),
-                table: List.of('g', 'h', 'i', 'j'),
-                deck: List.of('k')
+                deck: List.of('g', 'h', 'i', 'j', 'k'),
+            }));
+        });
+        it('places four cards on the table', () => {
+            const state = Map({
+                deck: List.of('a', 'b', 'c', 'd', 'g',
+                              'h', 'i', 'j', 'k')
+            });
+
+            const nextState = dealTable(state);
+            expect(nextState.get('deck').size).to.equal(5);
+            expect(nextState.get('table').size).to.equal(4);
+            expect(nextState).to.equal(Map({
+                deck: List.of('g', 'h', 'i', 'j', 'k'),
+                table: List.of('a','b','c', 'd')
             }));
         });
     });
