@@ -1,6 +1,6 @@
 import {List, Map, fromJS} from 'immutable';
-export function shuffle(state, deck){
-    var array = deck.toArray();
+export function shuffle(state){
+    var array = state.get('deck').toArray();
     var i = 0
         , j = 0
         , temp = null;
@@ -15,7 +15,9 @@ export function shuffle(state, deck){
     return state.set('deck', List(array));
 }
 
-export function newDeck(){
+export function newDeck(state){
+    var undefined;
+
     var suits = ['clubs', 'coins', 'cups', 'swords'];
     var cards = ['1', '2', '3', '4', '5',
     '6', '7', 'woman', 'knight', 'king'];
@@ -25,8 +27,12 @@ export function newDeck(){
           deck.push(card + ' of ' +  suit);
         });
     });
-
-    return List(deck);
+    
+    if(state === undefined){
+        return List(deck);
+    } else {
+        return state.set('deck', List(deck));
+    }
 }
 
 export function dealPlayers(state, numPlayers){

@@ -2,12 +2,13 @@ import {List, Map} from 'immutable';
 import {expect} from 'chai';
 
 import {shuffle, newDeck, dealPlayers, dealTable, discard, capture} from '../src/core';
+import reducer from '../src/reducer';
 
 describe('application logic', () => {
     describe('suffle', () => {
         it('creates a deck of 40 cards', () => {
-            const state = Map();
-            const nextState = shuffle(state, newDeck());
+            const state = Map({deck: newDeck()});
+            const nextState = shuffle(state);
             expect(nextState.get('deck').size).to.equal(40);
         });
     });
