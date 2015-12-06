@@ -24,7 +24,7 @@ export function newDeck(state){
     var deck = [];
     suits.map(function(suit){
         cards.map(function(card) {
-          deck.push(card + ' of ' +  suit);
+          deck.push({face: card, suit: suit});
         });
     });
     
