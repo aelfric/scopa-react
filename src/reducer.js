@@ -5,6 +5,7 @@ import {shuffle, newDeck, dealPlayers, dealTable, discard, capture} from '../src
 export const INITIAL_STATE = Map();
 
 export default function reducer(state=INITIAL_STATE, action){
+    console.log(action.type);
     switch(action.type){
     case NEW_DECK:
         return newDeck(state);

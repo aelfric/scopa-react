@@ -5,7 +5,8 @@ export function shuffle(state){
         , j = 0
         , temp = null;
 
-    for (i = array.size - 1; i > 0; i -= 1){
+
+    for (i = array.length - 1; i > 0; i -= 1){
         j = Math.floor(Math.random() * (i+1));
         temp = array[i];
         array[i] = array[j];
