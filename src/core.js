@@ -32,7 +32,7 @@ export function newDeck(state){
     if(state === undefined){
         return List(deck);
     } else {
-        return state.set('deck', List(deck));
+        return Map({deck: List(deck)});
     }
 }
 
